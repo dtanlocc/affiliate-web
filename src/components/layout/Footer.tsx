@@ -1,107 +1,136 @@
-// src/components/layout/Footer.tsx
 import Link from "next/link";
-import { Facebook, Mail, Phone, MapPin, Tag } from "lucide-react";
+import { Facebook, Mail, ShieldCheck, Zap, ArrowRight, Tag, ExternalLink } from "lucide-react";
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-white border-t border-gray-200 mt-auto">
-      {/* Phần chính */}
-      <div className="max-w-6xl mx-auto px-4 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          
-          {/* Cột 1: Giới thiệu */}
-          <div>
-            <div className="flex items-center gap-2 mb-4 text-blue-600 font-black text-xl uppercase tracking-tighter">
-              <Tag className="text-yellow-400" /> SanMaNhanh
+    <footer className="bg-[#0f172a] text-slate-300 border-t border-slate-800 mt-auto overflow-hidden">
+      {/* Phần Top Footer: Call to Action cho Nhóm Zalo */}
+      <div className="bg-blue-600">
+        <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="bg-white/20 p-2 rounded-lg">
+                <Zap size={20} className="text-white fill-white" />
             </div>
-            <p className="text-gray-500 text-sm leading-relaxed mb-4">
-              Nền tảng tổng hợp mã giảm giá, voucher khuyến mãi tự động từ Shopee, Lazada, Tiki, TikTok Shop. Giúp bạn mua sắm tiết kiệm hơn mỗi ngày.
+            <p className="text-white font-bold text-sm md:text-base">
+                Tham gia cộng đồng săn mã "Hỏa Tốc" - Không bỏ lỡ deal hời nào!
             </p>
-            <div className="flex gap-4">
-              <a href="#" className="p-2 bg-gray-100 rounded-full hover:bg-blue-100 hover:text-blue-600 transition">
-                <Facebook size={20} />
-              </a>
-              <a href="#" className="p-2 bg-gray-100 rounded-full hover:bg-blue-100 hover:text-blue-600 transition">
-                <Mail size={20} />
-              </a>
-            </div>
           </div>
-
-          {/* Cột 2: Hỗ trợ khách hàng */}
-          <div>
-            <h3 className="font-bold text-gray-800 mb-4 uppercase text-sm">Về Chúng Tôi</h3>
-            <ul className="space-y-2 text-sm text-gray-500">
-              <li>
-                <Link href="/blog/ve-chung-toi" className="hover:text-blue-600 transition">Giới thiệu</Link>
-              </li>
-              <li>
-                <Link href="/blog/lien-he" className="hover:text-blue-600 transition">Liên hệ hợp tác</Link>
-              </li>
-              <li>
-                <Link href="/blog/chinh-sach-bao-mat" className="hover:text-blue-600 transition">Chính sách bảo mật</Link>
-              </li>
-              <li>
-                <Link href="/blog/dieu-khoan-su-dung" className="hover:text-blue-600 transition">Điều khoản sử dụng</Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Cột 3: Danh mục nổi bật */}
-          <div>
-            <h3 className="font-bold text-gray-800 mb-4 uppercase text-sm">Săn Mã Theo Sàn</h3>
-            <ul className="space-y-2 text-sm text-gray-500">
-              <li>
-                <Link href="/platform/shopee" className="hover:text-orange-500 transition">Mã Giảm Giá Shopee</Link>
-              </li>
-              <li>
-                <Link href="/platform/lazada" className="hover:text-blue-600 transition">Mã Giảm Giá Lazada</Link>
-              </li>
-              <li>
-                <Link href="/platform/tiktok" className="hover:text-black transition">Mã TikTok Shop</Link>
-              </li>
-              <li>
-                <Link href="/platform/tiki" className="hover:text-blue-400 transition">Mã Giảm Giá Tiki</Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Cột 4: Liên hệ & Cộng đồng */}
-          <div>
-            <h3 className="font-bold text-gray-800 mb-4 uppercase text-sm">Liên Hệ</h3>
-            <ul className="space-y-3 text-sm text-gray-500">
-              <li className="flex items-start gap-3">
-                <MapPin size={18} className="flex-shrink-0 text-blue-600" />
-                <span>Tp HCM</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail size={18} className="flex-shrink-0 text-blue-600" />
-                <a href="mailto:contact@sanmanhanh.com" className="hover:text-blue-600">contact@sanmanhanh.com</a>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone size={18} className="flex-shrink-0 text-blue-600" />
-                <a href="tel:0912345678" className="hover:text-blue-600">0912.345.678</a>
-              </li>
-            </ul>
-            
-            {/* Box tham gia nhóm Zalo - Rất quan trọng để kéo user quay lại */}
-            <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
-              <p className="text-xs font-bold text-blue-800 mb-1">Cộng đồng săn sale Zalo</p>
-              <button className="w-full bg-blue-600 text-white text-xs font-bold py-2 rounded hover:bg-blue-700 transition">
-                Tham gia ngay
-              </button>
-            </div>
-          </div>
-
+          <a 
+            href="https://zalo.me/g/wydidr139"
+            target="_blank"
+            className="flex items-center gap-2 bg-white text-blue-600 px-6 py-2 rounded-full font-black text-sm hover:bg-blue-50 transition-all shadow-xl active:scale-95 whitespace-nowrap"
+          >
+            VÀO NHÓM ZALO <ArrowRight size={16} />
+          </a>
         </div>
       </div>
 
-      {/* Phần Disclaimer (Bắt buộc phải có để tránh rắc rối pháp lý) */}
-      <div className="bg-gray-50 border-t border-gray-200 py-4">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-xs text-gray-400">
-            © 2024 SanMaNhanh.com. All rights reserved. <br/>
-            *Lưu ý: Chúng tôi không bán hàng trực tiếp. Chúng tôi chỉ tổng hợp mã giảm giá và nhận hoa hồng từ các sàn thương mại điện tử thông qua link tiếp thị liên kết.
-          </p>
+      {/* Phần Middle Footer: Nội dung chính */}
+      <div className="max-w-6xl mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          
+          {/* Cột 1: Thương hiệu */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-2 text-white font-black text-2xl uppercase tracking-tighter">
+              <Tag className="text-blue-500 fill-blue-500" /> SanMaNhanh
+            </div>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              SanMaNhanh là trợ lý mua sắm thông minh, giúp bạn tự động tìm kiếm và tổng hợp những mã giảm giá tốt nhất từ các sàn TMĐT lớn nhất Việt Nam.
+            </p>
+            <div className="flex gap-3">
+              {[
+                { icon: Facebook, href: "#", color: "hover:bg-blue-600" },
+                { icon: Mail, href: "mailto:contact@sanmanhanh.com", color: "hover:bg-red-500" }
+              ].map((social, idx) => (
+                <a 
+                  key={idx}
+                  href={social.href} 
+                  className={`w-10 h-10 flex items-center justify-center bg-slate-800 rounded-xl text-slate-300 ${social.color} hover:text-white transition-all duration-300`}
+                >
+                  <social.icon size={20} />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Cột 2: Hỗ trợ */}
+          <div>
+            <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Về Chúng Tôi</h3>
+            <ul className="space-y-4 text-sm">
+              {[
+                { label: "Giới thiệu", href: "/blog/ve-chung-toi" },
+                { label: "Liên hệ hợp tác", href: "/blog/lien-he" },
+                { label: "Chính sách bảo mật", href: "/blog/chinh-sach-bao-mat" },
+                { label: "Điều khoản sử dụng", href: "/blog/dieu-khoan-su-dung" }
+              ].map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className="hover:text-blue-400 transition-colors flex items-center gap-1 group">
+                    <ArrowRight size={12} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Cột 3: Đối tác sàn */}
+          <div>
+            <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Săn Mã Theo Sàn</h3>
+            <ul className="space-y-4 text-sm">
+              {[
+                { label: "Shopee Mall", href: "/coupons", color: "hover:text-orange-500" },
+                { label: "Lazada Voucher", href: "#", color: "hover:text-blue-500" },
+                { label: "TikTok Shop", href: "#", color: "hover:text-white" },
+                { label: "Tiki Trading", href: "#", color: "hover:text-cyan-400" }
+              ].map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className={`${link.color} transition-colors flex items-center justify-between group`}>
+                    {link.label} <ExternalLink size={12} className="opacity-30 group-hover:opacity-100" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Cột 4: Chứng nhận uy tín */}
+          <div>
+            <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Uy Tín & Bảo Mật</h3>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3 bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
+                <ShieldCheck className="text-green-500 shrink-0" size={24} />
+                <p className="text-xs text-slate-400 leading-snug">
+                  Mọi liên kết đều được kiểm tra an toàn trước khi chuyển hướng người dùng.
+                </p>
+              </div>
+              {/* <div className="pt-2">
+                 <img 
+                    src="https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&w=200&q=80" 
+                    alt="DMCA Protected" 
+                    className="h-8 opacity-50 grayscale hover:grayscale-0 transition-all cursor-pointer"
+                 />
+              </div> */}
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      {/* Phần Bottom: Disclaimer & Copyright */}
+      <div className="bg-[#0a0f1d] py-8 border-t border-slate-800">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center space-y-4">
+            <p className="text-[11px] text-slate-500 max-w-3xl mx-auto leading-relaxed uppercase tracking-wider">
+              © {currentYear} SanMaNhanh.com. Nền tảng chia sẻ mã giảm giá. <br/>
+              Chúng tôi không bán hàng trực tiếp. Chúng tôi nhận hoa hồng từ việc tiếp thị liên kết các sản phẩm trên sàn TMĐT. 
+              Mọi giao dịch, thanh toán và bảo hành sản phẩm thuộc trách nhiệm của nhà bán hàng trên sàn tương ứng.
+            </p>
+            <div className="h-px w-20 bg-slate-800 mx-auto"></div>
+            <p className="text-[10px] text-slate-600 italic">
+                Designed with precision by Senior Software Engineer
+            </p>
+          </div>
         </div>
       </div>
     </footer>

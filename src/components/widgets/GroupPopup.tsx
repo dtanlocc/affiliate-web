@@ -1,91 +1,125 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { X, MessageCircle, ArrowRight } from "lucide-react";
+import { X, MessageCircle, Facebook, ArrowRight, Sparkles, Users } from "lucide-react";
 
 export default function GroupPopup() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // CẤU HÌNH THỜI GIAN CHỜ (Tính bằng mili-giây)
-  // Ví dụ: 30 phút = 30 * 60 * 1000 = 1800000
-  // Để test cho nhanh, bạn có thể để 10000 (10 giây)
+  // CẤU HÌNH THỜI GIAN CHỜ (5 phút)
   const COOLDOWN_TIME = 5 * 60 * 1000; 
 
   useEffect(() => {
-    // 1. Lấy thời điểm lần cuối user tắt popup
     const lastClosedTime = localStorage.getItem("popupLastClosedTime");
     const now = Date.now();
 
-    // 2. Kiểm tra logic:
-    // - Nếu chưa từng tắt (người mới) -> Hiện
-    // - HOẶC Nếu đã tắt nhưng quá thời gian chờ rồi -> Hiện lại
     if (!lastClosedTime || (now - parseInt(lastClosedTime)) > COOLDOWN_TIME) {
-      
       const timer = setTimeout(() => {
         setIsOpen(true);
-      }, 1500); // Vẫn đợi 1.5s mới hiện cho mượt
-
+      }, 1500); 
       return () => clearTimeout(timer);
     }
   }, []);
 
   const handleClose = () => {
     setIsOpen(false);
-    // 3. Khi bấm tắt, lưu thời điểm hiện tại vào bộ nhớ
     localStorage.setItem("popupLastClosedTime", Date.now().toString());
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-300">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full relative overflow-hidden animate-in zoom-in-95 duration-300">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in duration-500">
+      <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full relative overflow-hidden animate-in zoom-in-95 duration-300">
         
+        {/* Nút đóng góc trên */}
         <button 
           onClick={handleClose}
-          className="absolute top-2 right-2 bg-gray-100 p-1.5 rounded-full text-gray-500 hover:bg-gray-200 hover:text-red-500 transition z-10"
+          className="absolute top-4 right-4 bg-gray-100 p-1.5 rounded-full text-gray-500 hover:bg-red-500 hover:text-white transition-all z-20"
         >
-          <X size={20} />
+          <X size={18} />
         </button>
 
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 text-center text-white">
-          <h3 className="text-xl font-black uppercase mb-1">Tham Gia Nhóm VIP</h3>
-          <p className="text-blue-100 text-sm">Nhận mã độc quyền & Báo lỗi giá</p>
+        {/* Header với Gradient mượt hơn */}
+        <div className="bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 p-8 text-center text-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 opacity-10">
+             <Users size={120} />
+          </div>
+          <div className="relative z-10">
+            <div className="inline-flex items-center gap-2 bg-white/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-3">
+               <Sparkles size={12} /> Cộng đồng săn deal
+            </div>
+            <h3 className="text-2xl font-black uppercase mb-1 tracking-tight">Gia Nhập Nhóm VIP</h3>
+            <p className="text-blue-100 text-sm font-medium">Nhận mã giảm giá 1 Triệu & Deal 0đ mỗi ngày</p>
+          </div>
         </div>
 
-        <div className="p-6 flex flex-col items-center text-center">
-          <div className="relative w-48 h-48 mb-4 bg-white p-2 rounded-xl border-2 border-dashed border-blue-200 shadow-inner">
-             <img 
-               src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://zalo.me/g/nhom-san-sale" 
-               alt="QR Zalo" 
-               className="w-full h-full object-contain"
-             />
-             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-1 rounded-full">
-                <MessageCircle className="text-blue-600 fill-blue-600" size={24}/>
-             </div>
-          </div>
-
-          <p className="text-gray-600 text-sm mb-4">
-            Quét mã QR hoặc bấm nút bên dưới để tham gia cộng đồng <strong>50.000+</strong> thành viên.
+        <div className="p-6">
+          <p className="text-gray-500 text-sm text-center mb-6">
+            Chọn nền tảng bạn yêu thích để không bỏ lỡ các đợt Sale khủng nhất.
           </p>
 
-          <a 
-            href="https://zalo.me/g/nhom-san-sale-demo" 
-            target="_blank"
-            rel="noreferrer"
-            onClick={handleClose} // Bấm vào link cũng tính là đã xem -> Đóng và lưu giờ
-            className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition flex items-center justify-center gap-2 shadow-lg shadow-blue-200"
-          >
-            Vào Nhóm Ngay <ArrowRight size={18} />
-          </a>
+          <div className="grid grid-cols-1 gap-4">
+            {/* LỰA CHỌN 1: ZALO */}
+            <a 
+              href="https://zalo.me/g/wydidr139" 
+              target="_blank"
+              rel="noreferrer"
+              onClick={handleClose}
+              className="group flex items-center gap-4 p-4 rounded-2xl bg-cyan-50 border border-cyan-100 hover:bg-cyan-100 hover:border-cyan-200 transition-all shadow-sm"
+            >
+              <div className="w-14 h-14 bg-[#0068FF] text-white rounded-2xl flex items-center justify-center shadow-lg shadow-cyan-200 group-hover:scale-110 transition-transform">
+                <MessageCircle size={28} fill="currentColor" />
+              </div>
+              <div className="flex-grow">
+                <h4 className="font-bold text-gray-800">Nhóm Zalo Săn Mã</h4>
+                <p className="text-xs text-gray-500">Cập nhật mã hỏa tốc 24/7</p>
+              </div>
+              <ArrowRight size={20} className="text-cyan-400 group-hover:translate-x-1 transition-transform" />
+            </a>
 
-          {/* Nút đóng phụ */}
-          <button 
-            onClick={handleClose}
-            className="mt-3 text-xs text-gray-400 hover:text-gray-600 underline"
-          >
-            Để sau, tôi muốn xem web trước
-          </button>
+            {/* LỰA CHỌN 2: FACEBOOK */}
+            <a 
+              href="https://www.facebook.com/groups/737583286073750/?ref=share" 
+              target="_blank"
+              rel="noreferrer"
+              onClick={handleClose}
+              className="group flex items-center gap-4 p-4 rounded-2xl bg-blue-50 border border-blue-100 hover:bg-blue-100 hover:border-blue-200 transition-all shadow-sm"
+            >
+              <div className="w-14 h-14 bg-[#1877F2] text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-200 group-hover:scale-110 transition-transform">
+                <Facebook size={28} fill="currentColor" />
+              </div>
+              <div className="flex-grow">
+                <h4 className="font-bold text-gray-800">Group Facebook VIP</h4>
+                <p className="text-xs text-gray-500">Review sản phẩm & Thảo luận</p>
+              </div>
+              <ArrowRight size={20} className="text-blue-400 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </div>
+
+          {/* Footer của Popup */}
+          <div className="mt-8 flex flex-col items-center">
+            <div className="flex items-center gap-2 mb-4">
+               <div className="flex -space-x-2">
+                  {[1,2,3,4].map(i => (
+                    <img 
+                      key={i} 
+                      className="w-7 h-7 rounded-full border-2 border-white object-cover" 
+                      src={`https://i.pravatar.cc/100?u=${i}`} 
+                      alt="User"
+                    />
+                  ))}
+               </div>
+               <span className="text-[11px] font-bold text-gray-400 uppercase tracking-tighter">50.000+ thành viên đã tham gia</span>
+            </div>
+
+            <button 
+              onClick={handleClose}
+              className="text-xs text-gray-400 hover:text-blue-600 transition-colors underline underline-offset-4"
+            >
+              Để sau, tôi muốn xem tiếp sản phẩm
+            </button>
+          </div>
         </div>
       </div>
     </div>

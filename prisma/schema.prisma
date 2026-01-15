@@ -1,0 +1,51 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"] // Bật tính năng Extension
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [vector] // Kích hoạt pgvector
+}
+
+model Product {
+  itemid          BigInt   @id
+  shopid          BigInt
+  slug            String?  @unique 
+  name            String   @db.Text
+  image           String   
+  images          Json?    
+  shop_location   String?
+  price           Float
+  original_price  Float?   
+  discount_text   String?  
+  rating_text     String?  
+  rating_value    Float?   
+  sold_count_text String?  
+  sold_count_value Int     @default(0) 
+  promotion_labels Json?   
+  seller_flag      Json?   
+  image_overlay    Json?   
+  brand_info       Json?   
+  in_title_flags   Json?   
+  description     String?  @db.Text 
+  attributes      Json?    
+  tier_variations Json?    
+  reviews         Json?    
+  stock           Int?     @default(0)
+  affiliate_link  String?  @db.Text
+  price_history   Json?    
+  ai_summary      String?  @db.Text 
+  embedding       Unsupported("vector(1024)")?
+  status          Int      @default(0) 
+  first_seen      DateTime @default(now())
+  last_seen       DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  @@index([price])
+  @@index([sold_count_value(sort: Desc)]) 
+  @@index([status])
+  @@index([name(ops: raw("gin_trgm_ops"))], type: Gin) 
+
+}

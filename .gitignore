@@ -17,6 +17,29 @@
 /.next/
 /out/
 
+# Dependencies
+node_modules
+.next
+out
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Binaries (Các file thực thi - KHÔNG ĐẨY LÊN)
+*.exe
+*.zip
+*.msi
+*.ico
+
+# Data files (Dữ liệu cào - KHÔNG ĐẨY LÊN)
+*.csv
+*.json
+*.xlsx
+
 # production
 /build
 
