@@ -39,7 +39,7 @@ out
 *.csv
 *.json
 *.xlsx
-
+!src/data/style-vectors.json
 # production
 /build
 
