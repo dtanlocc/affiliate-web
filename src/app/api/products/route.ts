@@ -267,10 +267,10 @@ export async function GET(request: Request) {
             const searchPhrase = style ? (STYLE_PROMPTS[style] || style.replace(/-/g, ' ')) : keyword;
             
             // THAY LINK NGROK CỦA BẠN VÀO ĐÂY
-            const LOCAL_AI_URL = "https://unpervading-salutatorily-stacy.ngrok-free.dev"; 
+            const LOCAL_AI_URL = process.env.LOCAL_AI_URL; 
             
             try {
-                const aiRes = await fetch(LOCAL_AI_URL, {
+                const aiRes = await fetch(`${LOCAL_AI_URL}/embed`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ text: searchPhrase })
