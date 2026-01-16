@@ -49,3 +49,15 @@ model Product {
   @@index([name(ops: raw("gin_trgm_ops"))], type: Gin) 
 
 }
+
+// Bảng lưu Menu Shopee
+model ShopeeMenu {
+  id          Int      @id @default(autoincrement())
+  shopeeId    Int      @unique // ID của Shopee (ví dụ 256892)
+  title       String
+  image       String
+  url         String   // Link gốc Shopee
+  updatedAt   DateTime @updatedAt
+
+  @@map("shopee_menu")
+}

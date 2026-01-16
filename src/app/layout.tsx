@@ -13,6 +13,7 @@ const Footer = dynamic(() => import('@/components/layout/Footer'), {
 
 // 2. IMPORT TRỰC TIẾP Widget (Vì nó đã tự xử lý Client-side bên trong)
 import SocialFloatingWidget from "@/components/widgets/SocialFloatingWidget";
+import TetEffects from "@/components/ui/TetEffects";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="min-h-screen bg-slate-50 pt-8 pb-12">
             {children}
         </main>
+        <TetEffects />
 
         {/* 3. CHÈN WIDGET VÀO ĐÂY - NÓ SẼ CHẠY MƯỢT MÀ */}
         <SocialFloatingWidget />

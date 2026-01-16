@@ -3,22 +3,25 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Flame, ThumbsUp, TrendingUp, BookOpen } from "lucide-react";
+import { Flame, ThumbsUp, TrendingUp, BookOpen, ChevronRight } from "lucide-react"; // Giữ nguyên import
 import CouponCard from "@/components/coupons/CouponCard";
 import ProductCard from "@/components/products/ProductCard";
 import GroupPopup from "@/components/widgets/GroupPopup";
 // import ZaloWidget from "@/components/widgets/SocialFloatingWidget";
-import { CouponService } from "@/services/couponService"; // Import Service
+import { CouponService } from "@/services/couponService"; 
 import { Coupon } from "@/types/coupon";
 import { BLOG_POSTS } from "@/data/blogData";
+import { UIProductCard } from "@/services/productService"; 
+import ShopeeMenu, { ShopeeMenuItem } from "@/components/layout/ShopeeMenu";
 
 interface HomeProps {
-  initialCoupons: any[]; // Có thể không dùng, nhưng giữ để interface chuẩn
+  initialCoupons: any[]; 
   goodProducts: any[];
   trendProducts: any[];
+  shopeeMenu: ShopeeMenuItem[];
 }
 
-export default function HomeClient({ goodProducts, trendProducts }: HomeProps) {
+export default function HomeClient({ goodProducts, trendProducts , shopeeMenu}: HomeProps) {
   // State riêng cho Coupon
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [loadingCoupons, setLoadingCoupons] = useState(true);
@@ -27,8 +30,6 @@ export default function HomeClient({ goodProducts, trendProducts }: HomeProps) {
   useEffect(() => {
     const fetchCoupons = async () => {
       try {
-        // Gọi Service (Service này sẽ gọi vào /api/accesstrade/route.ts mà mình đã fix ngon lành)
-        // Lấy 4 mã Shopee
         const data = await CouponService.getAll(1, 4); 
         setCoupons(data.data || []);
       } catch (error) {
@@ -45,16 +46,43 @@ export default function HomeClient({ goodProducts, trendProducts }: HomeProps) {
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-16">
       <GroupPopup />
 
-      {/* --- 1. MÃ GIẢM GIÁ (CLIENT FETCH) --- */}
+      
+
+      {/* --- BANNER TẾT (THÊM MỚI ĐỂ CÓ KHÔNG KHÍ) --- */}
+      <div className="relative rounded-3xl overflow-hidden shadow-xl border-4 border-yellow-300 mb-8 bg-gradient-to-r from-red-700 to-orange-600">
+          <div className="relative z-10 px-6 py-12 text-center text-white">
+              <h1 className="text-3xl md:text-5xl font-black mb-4 drop-shadow-md text-yellow-300 uppercase">
+                  Khai Xuân Như Ý - Săn Deal Hết Ý
+              </h1>
+              <p className="text-white/90 text-lg font-medium">
+                  Rước lộc đầu năm với hàng ngàn ưu đãi độc quyền.
+              </p>
+              {/* Hình trang trí hoa mai đơn giản bằng CSS/Image */}
+              <div className="absolute top-0 left-0 opacity-20 text-6xl select-none">🌸</div>
+              <div className="absolute bottom-0 right-0 opacity-20 text-6xl select-none">🧧</div>
+          </div>
+      </div>
+
+      <section className="-mt-6 relative z-20 px-4"> 
+          {/* -mt-6 để nó đè nhẹ lên banner một chút tạo hiệu ứng nổi */}
+          <div className="bg-white rounded-xl p-6 shadow-xl border border-red-100">
+             <ShopeeMenu items={shopeeMenu} />
+          </div>
+      </section>
+      {/* --- 1. MÃ GIẢM GIÁ (Style: Đỏ Tết) --- */}
       <section>
         <div className="flex items-center justify-between mb-6">
            <div className="flex items-center gap-2">
-             <div className="bg-red-500 p-2 rounded-lg text-white shadow-lg shadow-red-200">
-                 <Flame size={24} className="fill-white"/>
+             {/* Đổi màu nền icon thành Đỏ */}
+             <div className="bg-red-600 p-2 rounded-lg text-yellow-300 shadow-md">
+                 <Flame size={24} fill="currentColor"/>
              </div>
-             <h2 className="text-2xl font-black text-gray-800 uppercase">Mã Giảm Giá Mới</h2>
+             <h2 className="text-2xl font-black text-gray-800 uppercase">Lì Xì (Mã Giảm Giá)</h2>
            </div>
-           <Link href="/coupons" className="text-sm font-bold text-blue-600 hover:underline">Xem tất cả</Link>
+           {/* Đổi link thành màu đỏ */}
+           <Link href="/coupons" className="text-sm font-bold text-red-600 hover:underline flex items-center">
+              Xem tất cả <ChevronRight size={16}/>
+           </Link>
         </div>
         
         {loadingCoupons ? (
@@ -74,46 +102,46 @@ export default function HomeClient({ goodProducts, trendProducts }: HomeProps) {
         )}
       </section>
 
-      {/* --- 2. SẢN PHẨM TỐT (SERVER DATA - CÓ SẴN) --- */}
+      {/* --- 2. SẢN PHẨM TỐT (Style: Viền Đỏ + Giữ nguyên Text của bạn) --- */}
       <section>
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8 flex items-center justify-between">
-             <div className="flex items-center gap-3">
-                <ThumbsUp className="text-blue-600" size={28}/>
+        {/* Thêm border-red-200 để tạo không khí tết nhẹ nhàng */}
+        <div className="bg-white rounded-2xl shadow-sm border border-red-200 p-6 mb-8 flex items-center justify-between">
+             <div className="flex items-center gap-4">
+                {/* Đổi icon thành màu đỏ */}
+                <div className="bg-red-50 p-3 rounded-full">
+                    <ThumbsUp className="text-red-600" size={28}/>
+                </div>
                 <div>
                     <h2 className="text-xl font-black text-gray-800 uppercase">Đồ Xịn Giá Xinh</h2>
-                    {/* <p className="text-xs text-gray-500">Tạm biệt hàng kém chất lượng shopee! Mua sắm an tâm với list đồ Mall & Yêu thích đã qua lọc kỹ. 💎🛍️</p> */}
-                    {/* <p className="text-xs text-gray-500">🚫 Ghét hàng "rác"? Để mình lọc Shopee thay bạn! 🔍 Chỉ tuyển cực phẩm Mall & Yêu thích đã qua "đãi cát tìm vàng".
-                      <br /> ✨ Mua đúng đồ - đúng giá - đúng chất lượng. Yên tâm chốt đơn! 🧺🎯</p> */}
+                    
+                    {/* --- ĐOẠN TEXT CỦA BẠN (GIỮ NGUYÊN 100%) --- */}
+                    <div className="mt-2 text-xs text-gray-600 leading-relaxed bg-orange-50 p-2 rounded border border-orange-100">
+                        <p>🚫 Loại bỏ hàng kém chất lượng! Mình giúp bạn lọc <span className="font-bold text-orange-500">Shopee</span> chuẩn xác.</p>
+                        <p>🔍 Chỉ chọn sản phẩm từ <span className="font-bold text-red-600"> Shop Mall</span> & <span className="font-bold text-orange-500">Shop Yêu thích</span>.</p>
+                        <p>✨ Yên tâm mua sắm, chọn đúng đồ xịn, giá tốt nhất! 🛍️🎯</p>
+                    </div>
+                    {/* ------------------------------------------- */}
 
-                      {/* <p className="text-xs text-gray-600 leading-relaxed">
-                        🚫 Ghét hàng kém chất lượng? Để mình lọc <span className="font-bold text-orange-500">Shopee</span> thay bạn! <br />
-                        🔍 Chỉ tuyển đồ <span className="font-bold text-red-600">Mall</span> & <span className="font-bold text-orange-500">Yêu thích +</span> cực xịn. <br />
-                        ✨ Mua đúng đồ, đúng giá, an tâm chốt đơn nha! 🧺🎯
-                      </p> */}
-
-
-                      <p className="text-xs text-gray-600 leading-relaxed">
-                        🚫 Loại bỏ hàng kém chất lượng! Mình giúp bạn lọc <span className="font-bold text-orange-500">Shopee</span> chuẩn xác. <br />
-                        🔍 Chỉ chọn sản phẩm từ <span className="font-bold text-red-600"> Shop Mall</span> & <span className="font-bold text-orange-500">Shop Yêu thích</span>. <br />
-                        ✨ Yên tâm mua sắm, chọn đúng đồ xịn, giá tốt nhất! 🛍️🎯
-                      </p>
                 </div>
              </div>
-             <Link href="/products/top-picks" className="text-sm font-bold text-blue-600">Xem thêm</Link>
+             {/* Đổi nút xem thêm thành màu đỏ */}
+             <Link href="/products/top-picks" className="text-sm font-bold text-red-600 hover:text-red-800 hover:bg-red-50 px-4 py-2 rounded-lg transition">
+                Xem thêm
+             </Link>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-             {/* Dữ liệu goodProducts đã có sẵn từ Server, hiển thị ngay lập tức */}
              {goodProducts.map((p) => <ProductCard key={p.id} data={p} />)}
         </div>
       </section>
 
-
       {/* <ZaloWidget /> */}
 
-      {/* Blog */}
-      <section>
+      {/* Blog (Style: Tiêu đề Đỏ/Xanh) */}
+      {/* <section>
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-black text-gray-800 uppercase flex items-center gap-2"><BookOpen className="text-green-600"/> BÀI VIẾT MỚI</h2>
+            <h2 className="text-2xl font-black text-gray-800 uppercase flex items-center gap-2">
+                <BookOpen className="text-green-600"/> BÀI VIẾT MỚI
+            </h2>
             <Link href="/blog" className="text-blue-600 font-bold text-sm hover:underline">Xem tất cả</Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -127,7 +155,7 @@ export default function HomeClient({ goodProducts, trendProducts }: HomeProps) {
                   </div>
               ))}
           </div>
-      </section>
+      </section> */}
     </div>
   );
 }

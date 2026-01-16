@@ -52,12 +52,26 @@ export default async function Page() {
     where: { status: 1 }
   });
   const trendProducts = latest.map(normalizeProduct);
+  const rawMenu = await prisma.shopeeMenu.findMany({
+    orderBy: { id: 'asc' } // Sắp xếp theo thứ tự lưu
+  });
+
+  // Map dữ liệu cho Menu
+  const shopeeMenu = rawMenu.map(m => ({
+      id: m.id,
+      // Fix lỗi BigInt nếu có, hoặc để nguyên nếu schema là Int
+      // title/image/url lấy trực tiếp từ DB
+      title: m.title,
+      image: m.image,
+      url: m.url
+  }));
 
   return (
     <HomeClient 
         initialCoupons={[]} // Truyền rỗng, Client sẽ tự fetch
         goodProducts={goodProducts} 
         trendProducts={trendProducts} 
+        shopeeMenu={shopeeMenu}
     />
   );
 }

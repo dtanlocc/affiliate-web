@@ -38,12 +38,12 @@ export const NAV_ITEMS = [
     color: "text-purple-600",
     isExternal: true // <--- QUAN TRỌNG: Để mở tab mới
   },
-  { 
-    label: "Bài Viết Mới", 
-    href: "/blog", 
-    icon: BookOpen,
-    color: "text-green-600"
-  },
+  // { 
+  //   label: "Bài Viết Mới", 
+  //   href: "/blog", 
+  //   icon: BookOpen,
+  //   color: "text-green-600"
+  // },
   { 
     label: "Group Zalo", 
     href: "https://zalo.me/g/wydidr139", 
