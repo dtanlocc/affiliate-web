@@ -1,7 +1,6 @@
 // src/app/category/[slug]/page.tsx
 
-export const revalidate = 3600; // Cache 1 tiếng
-export const dynamicParams = true; // Cho phép tạo trang mới nếu chưa có trong cache
+
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

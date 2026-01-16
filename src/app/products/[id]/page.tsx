@@ -9,8 +9,7 @@ const formatVND = (price: number | any) => {
   return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(Number(price));
 };
 
-export const revalidate = 3600; // Cache 1 tiếng
-export const dynamicParams = true; // Cho phép tạo trang mới nếu chưa có trong cache
+export const revalidate = 3600; 
 
 
 

@@ -7,9 +7,6 @@ import { ProductService, UIProductCard } from "@/services/productService";
 import ProductCard from "@/components/products/ProductCard";
 import { Sparkles, Loader2 } from "lucide-react";
 
-export const revalidate = 3600; // Cache 1 tiếng
-export const dynamicParams = true; // Cho phép tạo trang mới nếu chưa có trong cache
-
 // Map tên hiển thị cho đẹp
 const STYLE_NAMES: Record<string, string> = {
     'tong-tai': 'Phong Cách Tổng Tài Khí Chất',
