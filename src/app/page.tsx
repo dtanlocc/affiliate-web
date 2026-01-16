@@ -52,7 +52,7 @@ export default async function Page() {
     where: { status: 1 }
   });
   const trendProducts = latest.map(normalizeProduct);
-  const rawMenu = await prisma.ShopeeMenu.findMany({
+  const rawMenu = await prisma.shopeeMenu.findMany({
     orderBy: { id: 'asc' } // Sắp xếp theo thứ tự lưu
   });
 
