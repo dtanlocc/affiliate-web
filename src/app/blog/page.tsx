@@ -8,6 +8,8 @@ export const metadata = {
   title: "Blog Săn Sale & Review - SanMaNhanh",
   description: "Chia sẻ kinh nghiệm mua sắm, review sản phẩm chân thực.",
 };
+export const revalidate = 3600; // Cache 1 tiếng
+export const dynamicParams = true; // Cho phép tạo trang mới nếu chưa có trong cache
 
 export default function BlogListing() {
   return (

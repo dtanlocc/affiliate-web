@@ -5,6 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
+export const revalidate = 3600; // Cache 1 tiếng
+export const dynamicParams = true; // Cho phép tạo trang mới nếu chưa có trong cache
+
 // 1. Tạo Metadata động cho SEO (Tiêu đề bài viết hiện lên tab trình duyệt)
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
